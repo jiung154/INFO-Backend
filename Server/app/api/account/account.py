@@ -1,7 +1,8 @@
 from flask import request, abort
 from flask_restful import Resource
 from flask_jwt_extended import (
-    create_access_token, create_refresh_token
+    create_access_token, create_refresh_token,
+    jwt_refresh_token_required, get_jwt_identity
 )
 from werkzeug.security import (
     check_password_hash, generate_password_hash
@@ -54,3 +55,13 @@ class RegisterUser(Resource):
         db.session.close()
 
         return "", 200
+
+
+class RefreshToken(Resource):
+    @jwt_refresh_token_required
+    def post(self):
+        user = get_jwt_identity()
+
+        return {
+            'access_token': create_access_token(identity=user)
+        }
