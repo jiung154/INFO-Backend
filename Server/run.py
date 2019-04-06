@@ -7,7 +7,7 @@ app = Flask(__name__)
 app.config.update(
     SECRET_KEY='dev',
     SQLALCHEMY_DATABASE_URI=(
-        'mysql+pymysql://root:tt12345678@localhost/ies')
+        'mysql+pymysql://<id>:<pw>@localhost/<database>')
     ,
     SQLALCHEMY_TRACK_MODIFICATIONS=False,
     JWT_SECRET_KEY='dev'
