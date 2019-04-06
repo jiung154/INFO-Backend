@@ -7,3 +7,6 @@ api.prefix = '/account'
 
 from .account import LoginUser
 api.add_resource(LoginUser, '/login')
+
+from .account import RegisterUser
+api.add_resource(RegisterUser, '/register')
