@@ -18,13 +18,13 @@ jwt = JWTManager(app)
 
 
 if __name__ == '__main__':
-    '''
+
     from app.model.account import *
     from app.model.post import *
 
     db.drop_all()
     db.create_all()
-    '''
+
     from Server.app.api import blueprint
     blueprint(app)
 

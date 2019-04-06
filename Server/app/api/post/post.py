@@ -21,6 +21,29 @@ class ShowAllPost(Resource):
         } for post in all_post])
 
 
+class WritePost(Resource):
+    @jwt_required
+    @data_required(['title', 'content', 'category'])
+    def post(self):
+        title = request.json['title']
+        content = request.json['content']
+        category = request.json['category']
+        name = get_jwt_identity()
+
+        post = PostModel(
+            title=title,
+            content=content,
+            category=category,
+            name=name
+        )
+
+        db.session.add(post)
+        db.session.commit()
+        db.session.close()
+
+        return "", 201
+
+
 class OnePost(Resource):
     @jwt_required
     def get(self, category, idx):
