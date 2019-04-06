@@ -54,7 +54,7 @@ class RegisterUser(Resource):
         db.session.commit()
         db.session.close()
 
-        return "", 200
+        return "", 201
 
 
 class RefreshToken(Resource):
