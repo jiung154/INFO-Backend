@@ -18,3 +18,6 @@ def blueprint(app):
     from .account import account_blueprint
     app.register_blueprint(account_blueprint)
 
+    from .post import post_blueprint
+    app.register_blueprint(post_blueprint)
+

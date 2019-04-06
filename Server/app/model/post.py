@@ -20,6 +20,11 @@ class PostModel(db.Model):
         nullable=False
     )
 
+    category = db.Column(
+        db.String(50),
+        nullable=False
+    )
+
     name = db.Column(
         db.String(100),
         nullable=False
