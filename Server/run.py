@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 
+from app.api import blueprint
 
 app = Flask(__name__)
 app.config.update(
@@ -20,14 +21,13 @@ jwt = JWTManager(app)
 
 
 if __name__ == '__main__':
-
+    '''
     from app.model.account import *
     from app.model.post import *
 
     db.drop_all()
     db.create_all()
-
-    from Server.app.api import blueprint
+    '''
     blueprint(app)
 
     app.run(host="0.0.0.0")

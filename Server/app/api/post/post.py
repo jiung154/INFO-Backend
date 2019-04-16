@@ -9,6 +9,7 @@ from app.api import data_required
 
 
 class ShowAllPost(Resource):
+    @jwt_required
     def get(self, category):
         all_post = PostModel.query.filter_by(category=category).all()
         db.session.close()
@@ -18,6 +19,18 @@ class ShowAllPost(Resource):
             'title': post.title,
             'content': post.content,
             'name': post.name
+        } for post in all_post])
+
+
+class TitleAndId(Resource):
+    @jwt_required
+    def get(self, category):
+        all_post = PostModel.query.filter_by(category=category).all()
+        db.session.close()
+
+        return jsonify([{
+            'id': post.id,
+            'title': post.title
         } for post in all_post])
 
 
