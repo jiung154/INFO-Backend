@@ -1,5 +1,5 @@
-from flask import jsonify, abort, request
-from flask_restful import Resource
+from flask import Blueprint, jsonify, abort, request
+from flask_restful import Api, Resource
 from flask_jwt_extended import (
     jwt_required, get_jwt_identity
 )
@@ -7,22 +7,12 @@ from flask_jwt_extended import (
 from app.model.post import *
 from app.api import data_required
 
+api = Api(Blueprint(__name__, __name__))
+api.prefix = '/post'
 
+
+@api.resource('/<category>')
 class ShowAllPost(Resource):
-    @jwt_required
-    def get(self, category):
-        all_post = PostModel.query.filter_by(category=category).all()
-        db.session.close()
-
-        return jsonify([{
-            'id': post.id,
-            'title': post.title,
-            'content': post.content,
-            'name': post.name
-        } for post in all_post])
-
-
-class TitleAndId(Resource):
     @jwt_required
     def get(self, category):
         all_post = PostModel.query.filter_by(category=category).all()
@@ -34,6 +24,7 @@ class TitleAndId(Resource):
         } for post in all_post])
 
 
+@api.resource('/write')
 class WritePost(Resource):
     @jwt_required
     @data_required(['title', 'content', 'category'])
@@ -57,6 +48,7 @@ class WritePost(Resource):
         return "", 201
 
 
+@api.resource('/<category>/<int:idx>')
 class OnePost(Resource):
     @jwt_required
     def get(self, category, idx):

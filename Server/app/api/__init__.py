@@ -15,9 +15,9 @@ def data_required(key):
 
 
 def blueprint(app):
-    from .account import account_blueprint
-    app.register_blueprint(account_blueprint)
+    from app.api.account import account
+    app.register_blueprint(account.api.blueprint)
 
-    from .post import post_blueprint
-    app.register_blueprint(post_blueprint)
+    from app.api.post import post
+    app.register_blueprint(post.api.blueprint)
 

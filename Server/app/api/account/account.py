@@ -1,5 +1,5 @@
-from flask import request, abort
-from flask_restful import Resource
+from flask import Blueprint, request, abort
+from flask_restful import Api, Resource
 from flask_jwt_extended import (
     create_access_token, create_refresh_token,
     jwt_refresh_token_required, get_jwt_identity
@@ -7,10 +7,15 @@ from flask_jwt_extended import (
 from werkzeug.security import (
     check_password_hash, generate_password_hash
 )
+
 from app.api import data_required
 from app.model.account import *
 
+api = Api(Blueprint(__name__, __name__))
+api.prefix = '/account'
 
+
+@api.resource('/login')
 class LoginUser(Resource):
     @data_required(['id', 'pw'])
     def post(self):
@@ -32,6 +37,7 @@ class LoginUser(Resource):
         }, 200
 
 
+@api.resource('/register')
 class RegisterUser(Resource):
     @data_required(['id', 'pw', 'name'])
     def post(self):
@@ -57,6 +63,7 @@ class RegisterUser(Resource):
         return "", 201
 
 
+@api.resource('/refresh')
 class RefreshToken(Resource):
     @jwt_refresh_token_required
     def post(self):
