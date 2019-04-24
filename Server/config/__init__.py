@@ -16,3 +16,5 @@ class Config:
         'mysql+pymysql://root:tt12345678@localhost/ies'
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+    UPLOAD_FOLDER = r'C:\Users\user\Desktop\IES\image'

@@ -19,5 +19,8 @@ def blueprint(app):
     app.register_blueprint(account.api.blueprint)
 
     from app.api.post import post
+    from app.api.post.image import ImageUpload
+    post.api.add_resource(ImageUpload, '/image')
+
     app.register_blueprint(post.api.blueprint)
 

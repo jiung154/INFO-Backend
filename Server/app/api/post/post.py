@@ -101,6 +101,6 @@ class OnePost(Resource):
 
         db.session.delete(post)
         db.session.commit()
-        db.session.close
+        db.session.close()
 
         return "", 200
