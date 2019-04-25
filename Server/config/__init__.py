@@ -1,3 +1,6 @@
+from datetime import timedelta
+
+
 class Config:
     HOST = '0.0.0.0'
     PORT = 5000
@@ -12,9 +15,13 @@ class Config:
     SECRET_KEY = 'dev'
     JET_SECRET_KEY = 'dev'
 
+    JWT_ACCESS_TOKEN_EXPIRES = timedelta(1)
+    JWT_REFRESH_TOKEN_EXPIRES = timedelta(7)
+
     SQLALCHEMY_DATABASE_URI = (
         'mysql+pymysql://root:tt12345678@localhost/ies'
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     UPLOAD_FOLDER = r'C:\Users\user\Desktop\IES\image'
+    MAX_CONTENT_LENGTH = 16 * 1024 * 1024
