@@ -1,7 +1,8 @@
+from app.model import BaseModel
 from run import db
 
 
-class PostModel(db.Model):
+class PostModel(db.Model, BaseModel):
     __tablename__ = 'post'
 
     id = db.Column(
@@ -29,3 +30,9 @@ class PostModel(db.Model):
         db.String(100),
         nullable=False
     )
+
+    def __init__(self, title, content, category, name):
+        self.title = title
+        self.content = content
+        self.category = category
+        self.name = name

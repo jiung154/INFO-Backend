@@ -34,16 +34,12 @@ class WritePost(Resource):
         category = request.json['category']
         name = get_jwt_identity()
 
-        post = PostModel(
+        PostModel(
             title=title,
             content=content,
             category=category,
             name=name
-        )
-
-        db.session.add(post)
-        db.session.commit()
-        db.session.close()
+        ).save()
 
         return "", 201
 
@@ -70,6 +66,7 @@ class OnePost(Resource):
     def put(self, category, idx):
         title = request.json['title']
         content = request.json['content']
+        re_category = request.json['category']
 
         user = get_jwt_identity()
         post = PostModel.query.filter_by(category=category, id=idx).first()
@@ -83,8 +80,10 @@ class OnePost(Resource):
         post.title = title
         post.content = content
 
-        db.session.commit()
-        db.session.close()
+        if re_category:
+            post.category = re_category
+
+        post.commit()
 
         return "", 201
 
@@ -99,8 +98,6 @@ class OnePost(Resource):
         if user != post.name:
             abort(403)
 
-        db.session.delete(post)
-        db.session.commit()
-        db.session.close()
+        post.delete()
 
-        return "", 200
+        return "", 201
