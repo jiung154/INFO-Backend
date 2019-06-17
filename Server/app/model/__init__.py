@@ -1,4 +1,4 @@
-from run import db
+from app.extension import db
 
 
 class BaseModel:

@@ -2,7 +2,7 @@ from datetime import timedelta
 
 
 class Config:
-    HOST = '0.0.0.0'
+    HOST = ''
     PORT = 5000
     DEBUG = False
 
@@ -25,3 +25,11 @@ class Config:
 
     UPLOAD_FOLDER = r'C:\Users\user\Desktop\IES\image'
     MAX_CONTENT_LENGTH = 16 * 1024 * 1024
+
+
+class TestConfig(Config):
+    TESTING = True
+
+    SQLALCHEMY_DATABASE_URI  = (
+        'mysql+pymysql://root:tt12345678@localhost/ies_test'
+    )
