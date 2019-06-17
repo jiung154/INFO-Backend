@@ -10,6 +10,7 @@ class ImageUpload(Resource):
         try:
             image = request.files['image']
         except ValueError:
+            image = None
             abort(400)
 
         try:
