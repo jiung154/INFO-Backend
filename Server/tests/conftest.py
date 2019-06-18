@@ -1,7 +1,9 @@
 import json
+import os
 import pytest
 
 from app import create_app
+from app.extension import db
 from config import TestConfig
 
 
@@ -12,9 +14,13 @@ def app():
 
     yield test_client
 
-    from app.extension import db
     db.drop_all(app=app)
     db.create_all(app=app)
+
+    file = __file__+r'\..\..\..\image\test.jpg'
+
+    if os.path.isfile(file):
+        os.remove(file)
 
 
 @pytest.fixture(scope='session')

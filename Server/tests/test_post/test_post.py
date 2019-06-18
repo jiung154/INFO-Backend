@@ -1,3 +1,4 @@
+import io
 import json
 
 
@@ -98,3 +99,21 @@ def test_delete_one_category_post(app, token):
     )
 
     assert res.status_code == 406
+
+
+def test_image_upload(app, token):
+    file = {
+        'image': (io.BytesIO(b'test'), 'test.jpg')
+    }
+
+    res = app.post(
+        '/post/image',
+        data=file,
+        content_type='multipart/form-data',
+        headers={
+            'Authorization': f'Bearer {token}'
+        }
+    )
+
+    assert res.status_code == 200
+
