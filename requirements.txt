@@ -28,7 +28,7 @@ py == 1.8.0
 pycparser == 2.19
 pyparsing == 2.4.0
 pytest == 4.6.3
-python_engineio == 3.8.1
+python_engineio == 3.8.2.post1
 python_socketio == 4.1.0
 pytz == 2019.1
 requests == 2.22.0
